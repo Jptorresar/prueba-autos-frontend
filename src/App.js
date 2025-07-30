@@ -1,11 +1,27 @@
+import "./styles/App.css";
 import React, {useState} from "react";
 import api from "./api/apiService";
 import JsonViewer from "./components/JsonView";
+import Header from "./components/Header";
+import Welcome from "./components/welcome";
+import Login from "./components/Login";
 
 function App() {
   const [result, setResult] = useState(null);
   const [userId, setUserId] = useState("");
   const [placa, setPlaca] = useState("");
+
+  const [currentPage, setCurrentPage] = useState("welcome");
+  function renderPage() {
+    switch (currentPage) {
+      case "welcome":
+        return <Welcome />;
+        case "login":
+        return <Login />;
+      default:
+        return null;
+    }
+  }
 
   const fetchData = async (type) => {
     let data;
@@ -38,53 +54,11 @@ function App() {
     }
   };
     return (
-    <div style={{ padding: "2em", fontFamily: "sans-serif" }}>
-      <h1>Conexión a API</h1>
-
-      <div style={{ marginBottom: "1em" }}>
-        <button onClick={() => fetchData("users")}>Obtener todos los usuarios</button>
-      </div>
-
-      <div style={{ marginBottom: "1em" }}>
-        <input
-          type="number"
-          placeholder="ID de usuario"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          style={{ marginRight: "0.5em" }}
-        />
-        <button onClick={() => fetchData("userById")}>Obtener usuario por ID</button>
-      </div>
-
-      <div style={{ marginBottom: "1em" }}>
-        <input
-          type="number"
-          placeholder="ID de usuario"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          style={{ marginRight: "0.5em" }}
-        />
-        <button onClick={() => fetchData("userAutos")}>Obtener autos del usuario</button>
-      </div>
-
-      <div style={{ marginBottom: "1em" }}>
-        <button onClick={() => fetchData("autos")}>Obtener todos los autos</button>
-      </div>
-
-      <div style={{ marginBottom: "1em" }}>
-        <input
-          type="text"
-          placeholder="Placa del auto"
-          value={placa}
-          onChange={(e) => setPlaca(e.target.value)}
-          style={{ marginRight: "0.5em" }}
-        />
-        <button onClick={() => fetchData("autoByPlaca")}>Obtener auto por placa</button>
-      </div>
-
-      {result && <JsonViewer data={result} />}
+      <div className="auto-page-wrapper">
+      <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <main className="auto-main-content">{renderPage()}</main>
     </div>
-  );
+    );
 }
 
 export default App;

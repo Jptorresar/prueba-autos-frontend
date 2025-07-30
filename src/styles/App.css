@@ -1,0 +1,27 @@
+/* Base Colors */
+:root {
+  --color-text-primary: #0A0D15;
+  --color-text-secondary: #1C2136;
+  --color-white: #ffffff;
+  --font-family: 'Pacifico', cursive;
+}
+
+/* Page Wrapper */
+.auto-page-wrapper {
+  background-color: var(--color-background-light);
+  font-family: 'Inter', sans-serif;
+}
+
+
+/* Main Content Sections */
+.auto-main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+body {
+  background: #8C99C5;
+  
+}
+

@@ -1,0 +1,42 @@
+/* Header Styles */
+  .auto-header {
+    background: linear-gradient(120deg, #E1E4F0, #D0D5E7, #AEB7D6);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+   .auto-header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+   .auto-header-logo {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--color-text-primary);
+  }
+  
+  .auto-navigation {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .auto-nav-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-transform: capitalize;
+    transition: color 0.3s ease;
+  }
+  
+  .auto-nav-inactive {
+    color: var(--color-text-secondary);
+  }
+  
+  .auto-nav-active {
+    color: var(--color-accent-blue);
+    font-weight: 600;
+  }
