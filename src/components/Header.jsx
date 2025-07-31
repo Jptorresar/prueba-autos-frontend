@@ -1,6 +1,10 @@
 import "../styles/header.css";
 
 function Header(props) {
+
+  const pages = props.isAuthenticated
+    ? ['welcome', 'profile'] // Si está autenticado
+    : ['welcome', 'login'];  // Si NO está autenticado
   
   return (
     <div className="auto-page-wrapper">
@@ -8,7 +12,7 @@ function Header(props) {
         <div className="auto-header-content">
           <div className="auto-header-logo">Auto Gestion</div>
           <nav className="auto-navigation">
-          {['welcome', 'login'].map((page) => (
+          {pages.map((page) => (
               <button 
                 key={page}
                 className={`auto-nav-button ${

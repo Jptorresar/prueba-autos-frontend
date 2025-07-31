@@ -1,7 +1,7 @@
 import "../styles/Login.css";
 import React, { useState } from 'react';
 
-const Login = () => {
+const Login = (props) => {
     const [formData, setFormData] = useState({ username: '', password: '' });
     const [message, setMessage] = useState('');
 
@@ -12,13 +12,39 @@ const Login = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Aquí podrías llamar a una API de login o realizar validaciones
-        if (formData.username === 'admin' && formData.password === '1234') {
-            setMessage('Login exitoso ✅');
-        } else {
-            setMessage('Credenciales incorrectas ❌');
+        console.log(formData)
+        try {
+            const response = await fetch("http://localhost:8080/api/auth/login", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const token = data.token;
+                const user = data.user; // <- asegúrate que el backend te mande esto también
+
+                // Guarda el token en localStorage (o donde prefieras)
+                localStorage.setItem('token', token);
+
+                setMessage('Login exitoso ✅');
+                // Puedes redirigir o cambiar de vista aquí si quieres
+                // Actualizar estado global
+                props.setIsAuthenticated(true);
+                props.setUserProfile(user);
+                props.setCurrentPage("welcome");
+            } else {
+                const errorText = await response.text();
+                setMessage('Credenciales incorrectas ❌ (' + errorText + ')');
+            }
+        } catch (error) {
+            console.error('Error en el login:', error);
+            setMessage('Error al conectar con el servidor ❌');
         }
     };
     return (
