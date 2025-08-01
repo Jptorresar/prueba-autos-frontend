@@ -1,6 +1,5 @@
 import "./styles/App.css";
 import React, { useState } from "react";
-import api from "./api/apiService";
 import Profile from "./components/Profile";
 import Header from "./components/Header";
 import Welcome from "./components/welcome";
@@ -41,6 +40,8 @@ function App() {
         isAuthenticated={isAuthenticated}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        setIsAuthenticated={setIsAuthenticated}
+        setUserProfile={setUserProfile}
       />
       <main className="auto-main-content">{renderPage()}</main>
     </div>

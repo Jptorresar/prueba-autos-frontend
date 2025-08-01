@@ -2,7 +2,7 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:808
 
 // credenciales de autenticación básica
 // Puedes usar estas credenciales para autenticarte en el backend si es necesario
-const credentials = btoa(`${process.env.REACT_APP_API_USERNAME}:${process.env.REACT_APP_API_PASSWORD}`);
+// const credentials = btoa(`${process.env.REACT_APP_API_USERNAME}:${process.env.REACT_APP_API_PASSWORD}`);
 
 class ApiService {
   constructor() {
@@ -41,47 +41,47 @@ class ApiService {
 
   // Métodos basicos para interactuar con la API
   fetchUsers() {
-    return this.fetch("/users");
+    return this.fetch("users");
   }
 
   fetchUserById(id) {
-    return this.fetch(`/users/${id}`);
+    return this.fetch(`users/${id}`);
   }
 
   fetchUserAutos(id) {
-    return this.fetch(`/users/${id}/autos`);
+    return this.fetch(`users/${id}/autos`);
   }
 
   fetchAllAutos() {
-    return this.fetch("/autos/all");
+    return this.fetch("autos/all");
   }
 
   fetchAutoByPlaca(placa) {
-    return this.fetch(`/autos/${placa}`);
+    return this.fetch(`autos/${placa}`);
   }
 
   //Inicio de sesión
   login(formData) {
-    return this.fetch("/auth/login", 'POST', formData);
+    return this.fetch("auth/login", 'POST', formData);
   }
 
   //Autos CRUD
   fetchAutos() {
-    return this.fetch("/autos/");
+    return this.fetch("autos/");
   }
 
   createAuto(auto) {
-    return this.fetch("/autos/", "POST", auto);
+    return this.fetch("autos/", "POST", auto);
   }
 
   deleteAuto(placa) {
-    return this.fetch(`/autos/${placa}`, "DELETE");
+    return this.fetch(`autos/${placa}`, "DELETE");
   }
 
   updateAuto(placa, autoData) {
-  return this.fetch(`/autos/${placa}`, 'PUT', autoData);
+  return this.fetch(`autos/${placa}`, 'PUT', autoData);
 }
 }
 
-
-export default new ApiService();
+var apiService = new ApiService();
+export default apiService;

@@ -40,3 +40,22 @@
     color: var(--color-accent-blue);
     font-weight: 600;
   }
+
+  .logout-button {
+  background: none;
+  border: none;
+  color: #ff4d4f;
+  margin-left: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+.logout-button:hover {
+  color: #c82333;
+}
+
+.logout-button svg {
+  vertical-align: middle;
+}
