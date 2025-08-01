@@ -52,8 +52,8 @@ class ApiService {
     return this.fetch(`/users/${id}/autos`);
   }
 
-  fetchAutos() {
-    return this.fetch("/autos");
+  fetchAllAutos() {
+    return this.fetch("/autos/all");
   }
 
   fetchAutoByPlaca(placa) {
@@ -64,6 +64,23 @@ class ApiService {
   login(formData) {
     return this.fetch("/auth/login", 'POST', formData);
   }
+
+  //Autos CRUD
+  fetchAutos() {
+    return this.fetch("/autos/");
+  }
+
+  createAuto(auto) {
+    return this.fetch("/autos/", "POST", auto);
+  }
+
+  deleteAuto(placa) {
+    return this.fetch(`/autos/${placa}`, "DELETE");
+  }
+
+  updateAuto(placa, autoData) {
+  return this.fetch(`/autos/${placa}`, 'PUT', autoData);
+}
 }
 
 

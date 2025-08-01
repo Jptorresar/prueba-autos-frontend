@@ -3,7 +3,7 @@ import "../styles/header.css";
 function Header(props) {
 
   const pages = props.isAuthenticated
-    ? ['welcome', 'profile'] // Si está autenticado
+    ? ['welcome', 'profile','auto'] // Si está autenticado
     : ['welcome', 'login'];  // Si NO está autenticado
   
   return (

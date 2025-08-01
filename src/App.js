@@ -5,6 +5,7 @@ import Profile from "./components/Profile";
 import Header from "./components/Header";
 import Welcome from "./components/welcome";
 import Login from "./components/Login";
+import Auto from "./components/Auto";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -27,6 +28,8 @@ function App() {
         />;
       case "profile":
         return <Profile user={userProfile} />
+      case "auto":
+        return <Auto user={userProfile} />;
       default:
         return null;
     }
