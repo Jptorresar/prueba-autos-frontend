@@ -1,5 +1,6 @@
 import "../styles/Login.css";
-import React, { useState } from 'react';
+import { useState } from 'react';
+import api from "../api/apiService";
 
 const Login = (props) => {
     const [formData, setFormData] = useState({ username: '', password: '' });
@@ -16,37 +17,24 @@ const Login = (props) => {
         e.preventDefault();
         console.log(formData)
         try {
-            const response = await fetch("http://localhost:8080/api/auth/login", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
+            const data = await api.login(formData)
+            const token = data.token;
+            const user = data.user;
 
-            if (response.ok) {
-                const data = await response.json();
-                const token = data.token;
-                const user = data.user; // <- asegúrate que el backend te mande esto también
+            // Guarda el token en localStorage
+            localStorage.setItem('token', token);
+            setMessage('Login exitoso ✅');
 
-                // Guarda el token en localStorage (o donde prefieras)
-                localStorage.setItem('token', token);
+            // Actualizar estado global
+            props.setIsAuthenticated(true);
+            props.setUserProfile(user);
+            props.setCurrentPage("profile");
 
-                setMessage('Login exitoso ✅');
-                // Puedes redirigir o cambiar de vista aquí si quieres
-                // Actualizar estado global
-                props.setIsAuthenticated(true);
-                props.setUserProfile(user);
-                props.setCurrentPage("welcome");
-            } else {
-                const errorText = await response.text();
-                setMessage('Credenciales incorrectas ❌ (' + errorText + ')');
-            }
         } catch (error) {
             console.error('Error en el login:', error);
             setMessage('Error al conectar con el servidor ❌');
         }
-    };
+    }
     return (
         <div className="login-container">
             <div className="login-card">
@@ -76,6 +64,6 @@ const Login = (props) => {
             </div>
         </div>
     );
-}
+};
 
 export default Login;

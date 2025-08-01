@@ -1,39 +1,45 @@
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api/';
 
-// Codifica usuario y contraseña en Base64 desde variables de entorno
+// credenciales de autenticación básica
+// Puedes usar estas credenciales para autenticarte en el backend si es necesario
 const credentials = btoa(`${process.env.REACT_APP_API_USERNAME}:${process.env.REACT_APP_API_PASSWORD}`);
 
 class ApiService {
   constructor() {
     this.baseUrl = API_BASE_URL;
-    this.headers = {
+  }
+
+  getHeaders() {
+    const token = localStorage.getItem('token');
+    return {
       "Content-Type": "application/json",
-      "Authorization": `Basic ${credentials}`,
+      ...(token && { "Authorization": `Bearer ${token}` }),
     };
   }
 
   async fetch(endpoint, method = 'GET', body = null) {
-  const options = {
-    method,
-    headers: this.headers,
-    credentials: 'include',
-  };
+    const options = {
+      method,
+      headers: this.getHeaders(),
+      credentials: 'include',
+    };
 
-  if (body) {
-    options.body = JSON.stringify(body);
+    if (body) {
+      options.body = JSON.stringify(body);
+    }
+
+    const response = await fetch(`${this.baseUrl}${endpoint}`, options);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Error ${response.status}: ${errorText}`);
+    }
+
+    return response.json();
   }
 
-  const response = await fetch(`${this.baseUrl}${endpoint}`, options);
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Error ${response.status}: ${errorText}`);
-  }
-
-  return response.json();
-}
-
-
+  // Métodos basicos para interactuar con la API
   fetchUsers() {
     return this.fetch("/users");
   }
@@ -53,6 +59,12 @@ class ApiService {
   fetchAutoByPlaca(placa) {
     return this.fetch(`/autos/${placa}`);
   }
+
+  //Inicio de sesión
+  login(formData) {
+    return this.fetch("/auth/login", 'POST', formData);
+  }
 }
+
 
 export default new ApiService();
