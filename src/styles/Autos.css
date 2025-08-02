@@ -98,3 +98,13 @@
 .action-buttons .delete-btn:hover {
   background-color: #c82333;
 }
+
+.search-input {
+  padding: 8px;
+  margin-bottom: 12px;
+  width: 100%;
+  max-width: 400px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
