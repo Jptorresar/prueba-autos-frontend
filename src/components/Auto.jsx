@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api/apiService';
 import "../styles/Autos.css"
+import placeholderAuto  from '../resources/auto.png';
 
 function Auto({ user }) {
   const [autos, setAutos] = useState([]);
-   const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [formData, setFormData] = useState({
     placa: '',
     modelo: '',
@@ -103,6 +104,7 @@ function Auto({ user }) {
       <table className="auto-table">
         <thead>
           <tr>
+            <th>Foto</th>
             <th>Placa</th>
             <th>Marca</th>
             <th>Modelo</th>
@@ -114,6 +116,13 @@ function Auto({ user }) {
         <tbody>
           {filteredAutos.map((auto) => (
             <tr key={auto.placa}>
+              <td>
+                <img
+                  src={auto.imagen || placeholderAuto }
+                  alt={`Imagen de ${auto.marca} ${auto.modelo}`}
+                  style={{ width: "50px", height: "50px", objectFit: "cover", borderRadius: "4px" }}
+                />
+              </td>
               <td>{auto.placa}</td>
               <td>{auto.marca}</td>
               <td>{auto.modelo}</td>
