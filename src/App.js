@@ -1,5 +1,7 @@
 import "./styles/App.css";
 import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
 import Profile from "./components/Profile";
 import Header from "./components/Header";
 import Welcome from "./components/welcome";
@@ -8,43 +10,53 @@ import Auto from "./components/Auto";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userProfile, setUserProfile] = useState(null); // aquí guardarás los datos del usuario logueado
+  const [userProfile, setUserProfile] = useState(null);
 
-
-  const [currentPage, setCurrentPage] = useState("welcome");
-  function renderPage() {
-    if (currentPage === "login" && isAuthenticated) {
-      setCurrentPage("profile");
-    }
-    switch (currentPage) {
-      case "welcome":
-        return <Welcome />;
-      case "login":
-        return <Login
+  return (
+    <Router>
+      <div className="auto-page-wrapper">
+        <Header
+          isAuthenticated={isAuthenticated}
           setIsAuthenticated={setIsAuthenticated}
           setUserProfile={setUserProfile}
-          setCurrentPage={setCurrentPage}
-        />;
-      case "profile":
-        return <Profile user={userProfile} />
-      case "auto":
-        return <Auto user={userProfile} />;
-      default:
-        return null;
-    }
-  }
-  
-  return (
-    <div className="auto-page-wrapper">
-      <Header
-        isAuthenticated={isAuthenticated}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        setIsAuthenticated={setIsAuthenticated}
-        setUserProfile={setUserProfile}
-      />
-      <main className="auto-main-content">{renderPage()}</main>
-    </div>
+        />
+        <main className="auto-main-content">
+          <Routes>
+            <Route path="/" element={<Welcome />} />
+             <Route
+              path="/login"
+              element={
+                <Login
+                  setIsAuthenticated={setIsAuthenticated}
+                  setUserProfile={setUserProfile}
+                />
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                isAuthenticated ? (
+                  <Profile user={userProfile} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/auto"
+              element={
+                isAuthenticated ? (
+                  <Auto user={userProfile} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
 
