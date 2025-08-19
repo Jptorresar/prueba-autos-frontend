@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import Welcome from "./components/welcome";
 import Login from "./components/Login";
 import Auto from "./components/Auto";
+import User from "./components/User";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -31,6 +32,18 @@ function App() {
                   setUserProfile={setUserProfile}
                 />
               }
+            />
+            <Route
+              path="/user"
+              element={
+                isAuthenticated ? (
+                  <Navigate to="/profile" />
+                ) : (
+                  <User
+                  setIsAuthenticated={setIsAuthenticated}
+                  setUserProfile={setUserProfile}/>
+                )
+              } 
             />
             <Route
               path="/profile"

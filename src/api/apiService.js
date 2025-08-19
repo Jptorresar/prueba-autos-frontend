@@ -65,6 +65,11 @@ class ApiService {
     return this.fetch("auth/login", 'POST', formData);
   }
 
+  //Usuario CRUD
+  createUser(user) {
+    return this.fetch("user/", "POST", user);
+  }
+
   //Autos CRUD
   fetchAutos() {
     return this.fetch("autos/");
