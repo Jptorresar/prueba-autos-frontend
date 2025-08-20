@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../styles/User.css"
+import api from "../api/apiService";
 
 const User = ( props ) => {
   const [formData, setFormData] = useState({
@@ -77,3 +78,5 @@ const User = ( props ) => {
         </div>
   );
 }
+
+export default User;

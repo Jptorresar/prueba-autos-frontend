@@ -34,7 +34,7 @@ function App() {
               }
             />
             <Route
-              path="/user"
+              path="/register"
               element={
                 isAuthenticated ? (
                   <Navigate to="/profile" />

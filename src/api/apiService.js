@@ -9,18 +9,21 @@ class ApiService {
     this.baseUrl = API_BASE_URL;
   }
 
-  getHeaders() {
-    const token = localStorage.getItem('token');
-    return {
-      "Content-Type": "application/json",
-      ...(token && { "Authorization": `Bearer ${token}` }),
+  getHeaders(withAuth = true) {
+    const headers = {
+      'Content-Type': 'application/json',
     };
+    if (withAuth) {
+    const token = localStorage.getItem('token');
+    if (token) headers["Authorization"] = `Bearer ${token}`;
+  }
+    return headers;
   }
 
-  async fetch(endpoint, method = 'GET', body = null) {
+  async fetch(endpoint, method = 'GET', body = null, withAuth = true) {
     const options = {
       method,
-      headers: this.getHeaders(),
+      headers: this.getHeaders(withAuth),
       credentials: 'include',
     };
 
@@ -62,12 +65,12 @@ class ApiService {
 
   //Inicio de sesión
   login(formData) {
-    return this.fetch("auth/login", 'POST', formData);
+    return this.fetch("auth/login", 'POST', formData,false);
   }
 
   //Usuario CRUD
   createUser(user) {
-    return this.fetch("user/", "POST", user);
+    return this.fetch("user/", "POST", user,false);
   }
 
   //Autos CRUD

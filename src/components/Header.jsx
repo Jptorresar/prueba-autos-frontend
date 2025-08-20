@@ -12,7 +12,8 @@ function Header(props) {
     ] // Si está autenticado
     : [
       { path: "/", label: "welcome" },
-      { path: "/login", label: "login" }
+      { path: "/login", label: "login" },
+      { path: "/register", label: "register" }
     ];  // Si NO está autenticado
 
   const handleLogout = () => {
