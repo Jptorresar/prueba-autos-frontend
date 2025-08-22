@@ -1,4 +1,4 @@
-import "./styles/App.css";
+//import "./styles/full.css";
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
@@ -20,6 +20,7 @@ function App() {
           isAuthenticated={isAuthenticated}
           setIsAuthenticated={setIsAuthenticated}
           setUserProfile={setUserProfile}
+          user={userProfile}
         />
         <main className="auto-main-content">
           <Routes>
