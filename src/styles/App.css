@@ -130,3 +130,26 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
+
+
+/* Links */
+.link-button {
+  background: none;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 0.875rem;
+}
+
+.link-button:hover {
+  color: #1d4ed8;
+}
+
+.link-button-green {
+  color: #16a34a;
+}
+
+.link-button-green:hover {
+  color: #15803d;
+}

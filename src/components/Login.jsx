@@ -1,4 +1,4 @@
-import "../styles/Login.css";
+import "../styles/Formularios.css";
 import { useState } from 'react';
 import api from "../api/apiService";
 import {  LogIn } from 'lucide-react';
