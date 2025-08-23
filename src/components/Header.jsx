@@ -7,7 +7,6 @@ function Header(props) {
   //const navigate = useNavigate();
   const pages = props.isAuthenticated
     ? [// Si está autenticado
-      { path: "/", label: "welcome" },
       { path: "/profile", label: "profile" },
       { path: "/auto", label: "auto" }
     ]

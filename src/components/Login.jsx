@@ -2,10 +2,12 @@ import "../styles/Formularios.css";
 import { useState } from 'react';
 import api from "../api/apiService";
 import {  LogIn } from 'lucide-react';
+import { useNavigate  } from "react-router-dom";
 
 const Login = (props) => {
     const [formData, setFormData] = useState({ username: '', password: '' });
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({
@@ -29,7 +31,7 @@ const Login = (props) => {
             // Actualizar estado global
             props.setIsAuthenticated(true);
             props.setUserProfile(user);
-            props.setCurrentPage("profile");
+            navigate("/profile")
 
         } catch (error) {
             console.error('Error en el login:', error);
